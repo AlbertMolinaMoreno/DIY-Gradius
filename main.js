@@ -24,18 +24,22 @@ const sonido_colision = document.getElementById("colission")
 
 //botones start reply
 let inicio = document.getElementById('start-game')
-let boton_inicio = document.getElementById('start-try')
-let boton_final = document.getElementById('try-again')
+let boton_inicio = document.querySelector('#start')
+let boton_final = document.querySelector('#restart')
+let oculto = document.querySelector('ocultar')
 
 //Score , vida y reloj
 let points = document.getElementById('puntos')
 let reloj = document.getElementById('clock')
 let lifes = document.getElementById('lifes')
 
+//
+let gameOver = document.getElementById('game_Over')
 
 
 //Inicia el game
 function startGame(){
+    gameOver.innerHTML=""
     musica()
     nave_Jugador.addShip() 
     timerMuerte= setInterval(function() {
@@ -73,8 +77,9 @@ function cronometro(){
         sonido_Explosion.play()
         clearInterval(timerMuerte)
         clearInterval(timerEnemigo)
-        alert("Game over")
         clearInterval(timerReloj)
+        gameOver.innerHTML="GAME OVER"
+        //board.appendChild(gameOver)
     }
  }
 
@@ -90,7 +95,9 @@ function Muerte(){
     clearInterval(timerEnemigo3)
     clearInterval(timerMeteorito) 
     clearInterval(timerReloj)
-    alert("Game over")
+    gameOver.innerHTML="GAME OVER"
+    //gameOver.style.color = 'white'
+    //board.appendChild(gameOver)
    }
 }
 
@@ -124,7 +131,6 @@ function crearEnemigos2(){
     let nave_Enemigo2 = new Enemigos2(900,numeroRandom,board)
     arrayEnemigos2.push(nave_Enemigo2)
     nave_Enemigo2.addEnemy2()  
-    console.log(arrayEnemigos2)
 }   
 function crearEnemigos3(){
     let numeroRandom = Math.floor(Math.random() * 8) * 63;
@@ -132,7 +138,6 @@ function crearEnemigos3(){
     let nave_Enemigo3 = new Enemigos3(900,numeroRandom,board)
     arrayEnemigos3.push(nave_Enemigo3)
     nave_Enemigo3.addEnemy3()  
-    console.log(arrayEnemigos3)
 }
     
 function crearMeteorito(){
@@ -141,7 +146,6 @@ function crearMeteorito(){
     let nave_Meteorito = new Meteorito(900,numeroRandom,board)
     arrayMeteorito.push(nave_Meteorito)
     nave_Meteorito.addMeteorito()  
-    console.log(arrayMeteorito)
 }
 
 boton_inicio.addEventListener('click', function(e) {
@@ -167,7 +171,6 @@ boton_final.addEventListener('click', function(e) {
 //Eventos del teclado para el movimiento del jugador
 window.addEventListener('keydown',function(evento){
     if(nave_Jugador.isDead === false){
-
     switch(evento.key){
 
         case  'w':
