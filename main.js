@@ -78,8 +78,8 @@ function cronometro(){
         clearInterval(timerMuerte)
         clearInterval(timerEnemigo)
         clearInterval(timerReloj)
-        gameOver.innerHTML="GAME OVER"
-        //board.appendChild(gameOver)
+        gameOver.innerHTML="Galaxy Saved"
+        gameOver.style.color = "yellow"
     }
  }
 
@@ -96,8 +96,7 @@ function Muerte(){
     clearInterval(timerMeteorito) 
     clearInterval(timerReloj)
     gameOver.innerHTML="GAME OVER"
-    //gameOver.style.color = 'white'
-    //board.appendChild(gameOver)
+    gameOver.style.color = "red"
    }
 }
 
