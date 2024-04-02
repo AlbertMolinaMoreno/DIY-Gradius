@@ -21,6 +21,8 @@ let vidas = 3;
 const sonido_Explosion = document.getElementById("explosion")
 const sonido_musica = document.getElementById("musica")
 const sonido_colision = document.getElementById("colission")
+const sonido_victoria = document.getElementById("victoria")
+
 
 //botones start reply
 let inicio = document.getElementById('start-game')
@@ -33,7 +35,7 @@ let points = document.getElementById('puntos')
 let reloj = document.getElementById('clock')
 let lifes = document.getElementById('lifes')
 
-//
+//game_Over
 let gameOver = document.getElementById('game_Over')
 
 
@@ -47,21 +49,21 @@ function startGame(){
     }, 20); 
     timerEnemigo = setInterval(function() {
         crearEnemigos(); 
-    }, 4500);
+    }, 1800);
     timerEnemigo2 = setInterval(function() {
         crearEnemigos2(); 
-    }, 9000);
+    }, 4300);
     timerEnemigo3 = setInterval(function() {
         crearEnemigos3(); 
-    }, 2000);
+    }, 600);
     timerMeteorito = setInterval(function() {
         crearMeteorito(); 
-    }, 6000); 
-
+    }, 5300); 
     timerReloj = setInterval(function(){
         cronometro()
     },1000);
 }
+
  //Reloj 
 function cronometro(){
     resta -= 1
@@ -70,16 +72,21 @@ function cronometro(){
         reloj.style.color = 'orange'
     } else if (resta < 50 ){
         reloj.style.color = 'red'
-    }  
-    if(resta <=0){
+    } 
+    if(resta <=0){ 
+        sonido_musica.pause()
         nave_Jugador.isDead = true
         board.removeChild(nave_Jugador.sprite)
         sonido_Explosion.play()
         clearInterval(timerMuerte)
         clearInterval(timerEnemigo)
+        clearInterval(timerEnemigo2)
+        clearInterval(timerEnemigo3)
+        clearInterval(timerMeteorito)
         clearInterval(timerReloj)
         gameOver.innerHTML="Galaxy Saved"
         gameOver.style.color = "yellow"
+        sonido_victoria.play()
     }
  }
 
@@ -115,38 +122,42 @@ function musica(){
 }
 
 
-
 //Crear enemigos en bucle 
 function crearEnemigos(){
-    let numeroRandom = Math.floor(Math.random() * 8) * 63;
+    let numeroRandom = Math.floor(Math.random() * 9) * 63;
     numeroRandom += 100
     let nave_Enemigo = new Enemigos(900,numeroRandom,board)
     arrayEnemigos.push(nave_Enemigo)
     nave_Enemigo.addEnemy()  
 }
 function crearEnemigos2(){
-    let numeroRandom = Math.floor(Math.random() * 8) * 63;
+    let numeroRandom = Math.floor(Math.random() * 9) * 63;
     numeroRandom += 100
     let nave_Enemigo2 = new Enemigos2(900,numeroRandom,board)
     arrayEnemigos2.push(nave_Enemigo2)
     nave_Enemigo2.addEnemy2()  
 }   
 function crearEnemigos3(){
-    let numeroRandom = Math.floor(Math.random() * 8) * 63;
+    let numeroRandom = Math.floor(Math.random() * 9) * 63;
     numeroRandom += 100
     let nave_Enemigo3 = new Enemigos3(900,numeroRandom,board)
     arrayEnemigos3.push(nave_Enemigo3)
     nave_Enemigo3.addEnemy3()  
-}
-    
+} 
 function crearMeteorito(){
-    let numeroRandom = Math.floor(Math.random() * 8) * 63;
+    let numeroRandom = Math.floor(Math.random() * 9) * 63;
+    let numeroRandom2 = Math.floor(Math.random() * 9) * 63;
     numeroRandom += 100
+    numeroRandom2 += 100
     let nave_Meteorito = new Meteorito(900,numeroRandom,board)
+    let nave_Meteorito2 = new Meteorito(900,numeroRandom2,board)
     arrayMeteorito.push(nave_Meteorito)
-    nave_Meteorito.addMeteorito()  
+    nave_Meteorito.addMeteorito()
+    nave_Meteorito2.addMeteorito()
+  
 }
 
+//Botones start y reply
 boton_inicio.addEventListener('click', function(e) {
     inicio.style.display = 'none'
     board.style.display = 'block'
@@ -167,6 +178,7 @@ boton_final.addEventListener('click', function(e) {
     retry.style.display = 'none'    
 })
     
+
 //Eventos del teclado para el movimiento del jugador
 window.addEventListener('keydown',function(evento){
     if(nave_Jugador.isDead === false){
@@ -177,6 +189,7 @@ window.addEventListener('keydown',function(evento){
         break;
 
         case  's':
+
         nave_Jugador.directionY = 1
         break;
 

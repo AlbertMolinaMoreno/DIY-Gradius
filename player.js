@@ -6,7 +6,7 @@ function Nave_Player(x,y,board){
     this.height = 50
     this.directionX = 0
     this.directionY = 0
-    this.speed = 10
+    this.speed = 12
     this.isDead = false
     this.sprite = document.createElement('div')
 
