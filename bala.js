@@ -85,7 +85,10 @@ function Bala(x, y, board) {
             points.innerHTML = suma
          }
      });
- }
+ }this.removeBala = function() {
+    clearInterval(self.timerBala);
+    board.removeChild(self.sprite);
+}
 
     //Esto borra la bala y su intervalo
 

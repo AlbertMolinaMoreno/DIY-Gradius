@@ -14,7 +14,7 @@ let timerMeteorito;
 let timerMuerte;
 let timerReloj;
 let suma = 0;
-let resta = 120;
+let resta = 20;
 let vidas = 3;
 
 //Sonidos
@@ -153,8 +153,7 @@ function crearMeteorito(){
     let nave_Meteorito2 = new Meteorito(900,numeroRandom2,board)
     arrayMeteorito.push(nave_Meteorito)
     nave_Meteorito.addMeteorito()
-    nave_Meteorito2.addMeteorito()
-  
+    nave_Meteorito2.addMeteorito() 
 }
 
 //Botones start y reply
@@ -164,14 +163,13 @@ boton_inicio.addEventListener('click', function(e) {
     nave_Jugador.isDead = false
     lifes.innerText = 3
     vidas = 3
-    resta = 120
-    reloj.innerHTML = 120
+    resta = 20
+    reloj.innerHTML = 20
     reloj.style.color = "white"
     suma = 0
     points.innerHTML = "000"
     startGame()
 })
-
 boton_final.addEventListener('click', function(e) {
     inicio.style.display = 'block'   
     board.style.display = 'none'
@@ -182,6 +180,7 @@ boton_final.addEventListener('click', function(e) {
 //Eventos del teclado para el movimiento del jugador
 window.addEventListener('keydown',function(evento){
     if(nave_Jugador.isDead === false){
+        evento.preventDefault()
     switch(evento.key){
 
         case  'w':
